@@ -27,18 +27,13 @@ public class LoginSteps {
     }
     @Dado("que a modal esteja sendo exibida")
     public void queAModalEstejaSendoExibida() {
-        Driver.getDriver().get("https://advantageonlineshoping.com");
+        Driver.getDriver().get("https://advantageonlineshopping.com");
         loginPage = new LoginPage();
         loginPage.clickBtnLogin();
     }
     @Quando("for realizado um clique fora da modal")
     public void forRealizadoUmCliqueForaDaModal() {
         loginPage.clickDivFecharModal();
-    }
-    @Entao("a janela modal deve ser fechada")
-    public void aJanelaModalDeveSerFechada() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
     }
 
     @Quando("for realizado um clique no icone de fechar")
@@ -51,14 +46,14 @@ public class LoginSteps {
         loginPage.clickLinkCreateAccount();
     }
 
-    @Entao("a janela moral deve ser fechada")
-    public void aJanelaMoralDeveSerFechada() {
+    @Entao("a janela modal deve ser fechada")
+    public void aJanelaModalDeveSerFechada() throws Exception {
+        try {
+            loginPage.invisibilityOfBtnFechar();
+        } catch (Exception e) {
+            throw new Exception("A janela modal nao foi fechada");
+        }
 
-    }
-
-    @Entao("a janela moral deve ser fechada")
-    public void aJanelaMoralDeveSerFechada() {
-        
     }
 
     @Entao("a pagina Create new Account deve ser exibida")
@@ -97,7 +92,6 @@ public class LoginSteps {
     public void osCamposDeLoginSejamPreenchidosDaSeguinteForma() {
         
     }
-
     @Entao("o botao sign in deve permanecer desabilitado")
     public void oBotaoSignInDevePermanecerDesabilitado() {
         boolean enabled = loginPage.isBtnSignIn();
