@@ -16,17 +16,19 @@ import java.util.Map;
 public class LoginSteps {
 
     LoginPage loginPage;
+    String userName;
 
     @Before
-    public void iniciaNavegador(){
+    public void iniciaNavegador() {
         new Driver(Browser.CHROME);
 
     }
 
     @After
-    public void fechaNavegador(){
+    public void fechaNavegador() {
         Driver.getDriver().quit();
     }
+
     @Dado("que a modal esteja sendo exibida")
     public void queAModalEstejaSendoExibida() {
         Driver.getDriver().get("https://advantageonlineshopping.com");
@@ -35,6 +37,7 @@ public class LoginSteps {
         loginPage.visibilityOfBtnFechar();
         loginPage.aguardaLoader();
     }
+
     @Quando("for realizado um clique fora da modal")
     public void forRealizadoUmCliqueForaDaModal() {
         loginPage.clickDivFecharModal();
@@ -68,31 +71,33 @@ public class LoginSteps {
 
     @Quando("os campos de login forem preenchidos da seguinte forma")
     public void osCamposDeLoginForemPreenchidosDaSeguinteForma(Map<String, String> map) {
-        String username = map.get("login");
+        userName = map.get("login");
         String password = map.get("password");
         boolean remember = Boolean.parseBoolean(map.get("remember"));
-        if(username != null){
-            loginPage.setInpUserName(username);
+        if (userName != null) {
+            loginPage.setInpUserName(userName);
         }
         if (password != null) {
             loginPage.setInpPassword(password);
         }
-        if(remember) loginPage.clickInpRemember();
+        loginPage.aguardaLoader();
+        if (remember) loginPage.clickInpRemember();
     }
 
-    @Quando("for realizado um clique no botão sign in")
-    public void forRealizadoUmCliqueNoBotãoSignIn() {
+    @Quando("for realizado um clique no botao sign in")
+    public void forRealizadoUmCliqueNoBotaoSignIn() {
         loginPage.clickBtnSignIn();
     }
 
     @Entao("deve ser possivel logar no sistema")
     public void deveSerPossivelLogarNoSistema() {
-        
+        Assert.assertEquals(userName, loginPage.getUsuarioLogado());
     }
 
     @Entao("o sistema deve exibir uma mensagem de erro")
     public void oSistemaDeveExibirUmaMensagemDeErro() {
-        
+        Assert.assertEquals("Incorrect user name or password.", loginPage.getErroLogin());
+
     }
 
     @Entao("o botao sign in deve permanecer desabilitado")
