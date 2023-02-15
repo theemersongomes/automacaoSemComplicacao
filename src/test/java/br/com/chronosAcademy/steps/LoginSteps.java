@@ -12,6 +12,7 @@ import io.cucumber.java.pt.Entao;
 import io.cucumber.java.pt.Quando;
 import org.junit.Assert;
 
+import java.io.IOException;
 import java.util.Map;
 
 public class LoginSteps {
@@ -74,7 +75,7 @@ public class LoginSteps {
     }
 
     @Quando("os campos de login forem preenchidos da seguinte forma")
-    public void osCamposDeLoginForemPreenchidosDaSeguinteForma(Map<String, String> map) {
+    public void osCamposDeLoginForemPreenchidosDaSeguinteForma(Map<String, String> map) throws IOException {
         userName = map.get("login");
         String password = map.get("password");
         boolean remember = Boolean.parseBoolean(map.get("remember"));
@@ -86,6 +87,7 @@ public class LoginSteps {
         }
         loginPage.aguardaLoader();
         if (remember) loginPage.clickInpRemember();
+        Driver.printScreen("preenchimento dos campos login");
     }
 
     @Quando("for realizado um clique no botao sign in")
@@ -94,8 +96,9 @@ public class LoginSteps {
     }
 
     @Entao("deve ser possivel logar no sistema")
-    public void deveSerPossivelLogarNoSistema() {
+    public void deveSerPossivelLogarNoSistema() throws IOException {
         Assert.assertEquals(userName, loginPage.getUsuarioLogado());
+        Driver.printScreen("Logado no sistema");
     }
 
     @Entao("o sistema deve exibir uma mensagem de erro")
