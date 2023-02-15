@@ -28,9 +28,10 @@ Funcionalidade: Login
     Quando for realizado um clique no botao sign in
     Entao deve ser possivel logar no sistema
     Exemplos:
-      | identificacao       | login   | password | remember |
-      | todos os campos     | chronos | Senha123 | true     |
-      | campos obrigatorios | chronos | Senha123 | false    |
+      | identificacao       | login   | password  | remember |
+      | todos os campos     | emerson | Ems142857 | true     |
+      | campos obrigatorios | emerson | Ems142857 | false    |
+
   @loginInvalido
   Esquema do Cenario: Realizar login com <identificacao>
     Quando os campos de login forem preenchidos da seguinte forma
@@ -53,6 +54,6 @@ Funcionalidade: Login
     Entao o botao sign in deve permanecer desabilitado
 
     Exemplos:
-      | identificacao     | login   | password | remember |
-      | usuario em branco |         | Senha123 | false    |
-      | senha em branco   | chronos |          | false    |
+      | identificacao     | login   | password  | remember |
+      | usuario em branco |         | Ems142857 | false    |
+      | senha em branco   | emerson |           | false    |
