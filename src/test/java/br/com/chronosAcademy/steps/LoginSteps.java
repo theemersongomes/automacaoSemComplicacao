@@ -28,10 +28,11 @@ public class LoginSteps {
     }
 
     @After
-    public void fechaNavegador(Scenario cenario) {
-        Driver.getDriver().quit();
-        System.out.println(Driver.getNomeCenario()+" - "+cenario.getStatus());
-        System.out.println(cenario.isFailed());
+    public void fechaNavegador(Scenario cenario) throws IOException {
+        if(cenario.isFailed()){
+            Driver.printScreen("Erro no cenário");
+            }
+           Driver.getDriver().quit();
     }
 
     @Dado("que a modal esteja sendo exibida")
